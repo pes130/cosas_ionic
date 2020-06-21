@@ -166,3 +166,83 @@ variable1 = this.storage.get('variable1');
 
 
 # 3. Componentes de ionic
+
+
+# 4. Crear un módulo de componentes
+Buena forma de organizar elementos. Por ejemplo, para organizar mis propios componentes. 
+En esencia necesito:
+1. Crear un módulo donde declararemos nuestros componentes. Luego, donde quieras usarlo, importas ese módulo.
+2. Declarar componentes dentro del módulo.
+
+Veamos:
+1. Crear un módulo:
+```bash
+ionic g module componentes
+```
+
+2. Creamos un componente:
+```bash
+ionic g component componentes/prueba
+```
+
+3. Declararlo en nuestro módulo. Lo declaramos y lo marcamos como exportable:
+```typescript
+...
+@NgModule({
+  declarations: [
+    PruebaComponent
+  ],
+  imports: [
+    CommonModule
+  ],
+  exports: [
+    PruebaComponent
+  ]
+})
+...
+```
+
+4. Para utilizar uno de nuestros componentes en cualquier página, tenemos que importar el **ComponentesModule** en el módulo de la página en cuestión, declarándolo en los imports. Para usarlo en la HomePage, lo importamos en home.module.ts, así:
+```typescript
+...
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    HomePageRoutingModule,
+    ComponentesModule
+  ],
+  declarations: [HomePage]
+})
+...
+```
+5. Ya podemos usarlo en el html de la página que queramos (en nuestro caso, home.page.html), haciendo uso de su etiqueta:
+```html
+...
+<ion-content>
+    <app-prueba></app-prueba>
+</ion-content>
+```
+
+## 4.1. ¿Pasar argumentos de entrada a un componente?
+Es posible pasarle parámetros de entrada. Imagina que nuestro componente muestre un saludo a un nombre de persona que le pasemos como parámetro:
+1. Se usa de esta manera:
+```html
+<ion-content>
+    <app-prueba nombre="Segismundo"></app-prueba>
+</ion-content>
+```
+
+2. En el controlador de nuestro componente **PruebaComponent**, recogemos este valor de la siguiente manera:
+
+```typescript 
+...
+export class PruebaComponent implements OnInit {
+    @Input() nombre: string;
+
+    constructor () {}
+
+    ...
+}
+```
