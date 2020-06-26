@@ -246,3 +246,65 @@ export class PruebaComponent implements OnInit {
     ...
 }
 ```
+
+
+
+# 5. Integración con Firebase
+1. Instalar dependencias para firebase en un proyecto:
+```bash
+npm install firebase @angular/fire --save
+```
+
+2. Loguearte con tu cuenta de firebase en la terminal:
+```bash
+firebase login
+```
+
+3. Iniciar la integración con Firebase
+```bash
+firebase init
+```
+
+## 5.1. Firebase hosting
+1. Instalar firebase CLI:
+```bash
+npm install -g firebase-tools
+```
+2. Desplegar mi aplicación:
+```bash
+firebase deploy
+```
+
+3. Listado de proyectos
+```bash
+firebase projects:list
+```
+
+4. Crear alias para un proyecto (por ejemplo, para crear la versión de producción)
+```bash
+firebase use  --add
+```
+Te aparecerá un asistente en modo texto.
+
+### RESUMEN - workflow hosting
+* ng build
+* firebase deploy
+
+Si uso entornos de desarrollo y producción:
+* ng build --prod
+* firebase use (alias de proyecto para producción)
+* firebase deploy
+
+
+## 5.2. Autenticación con Firebase
+1. Importamos el módulo en app.module.ts:
+```typescript
+...
+  imports: [
+    ...
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    ...
+  ],
+...
+```
